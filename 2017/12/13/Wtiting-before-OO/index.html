@@ -181,15 +181,7 @@ f1() === global;
 <p>function C(){   this.a = 37; }</p>
 <p>var o = new C(); console.log(o.a); // logs 37</p>
 <p>function C2(){   this.a = 37;   return {a:38}; }</p>
-<h1 id="This语法-1"><a href="#This语法-1" class="headerlink" title="This语法"></a>This语法</h1><h2 id="全局的语境中-1"><a href="#全局的语境中-1" class="headerlink" title="全局的语境中"></a>全局的语境中</h2><p>在全局中（任何函数之外），无论全局对象是否在严格模式下，<code>this</code>指代全局对象。</p>
-<p> // 在浏览器中, window 对象也是全局对象：<br>        console.log(this === window); // true</p>
-<pre><code>a = 37;
- console.log(window.a); // 37
-
- this.b = &quot;MDN&quot;;
- console.log(window.b)  // &quot;MDN&quot;
- console.log(b)         // &quot;MDN&quot;
-</code></pre></blockquote>
+</blockquote>
 <h2 id="在函数中-1"><a href="#在函数中-1" class="headerlink" title="在函数中"></a>在函数中</h2><p>在函数内部，this的值取决于函数被调用的方式。</p>
 <ol>
 <li>简单的调用<br>下面的代码不是严格的模式，并且由于<code>this</code>不是通过调用设置的，所以这个默认为全局对象。</li>
