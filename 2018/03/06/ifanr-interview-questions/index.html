@@ -108,7 +108,50 @@
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
                
-                
+                <h4 id="1-设置了多个按钮，点击任意一个按钮，该按钮弹出一个弹窗。根据按钮不同，弹窗的内容不同，获取按钮的id名。"><a href="#1-设置了多个按钮，点击任意一个按钮，该按钮弹出一个弹窗。根据按钮不同，弹窗的内容不同，获取按钮的id名。" class="headerlink" title="1.设置了多个按钮，点击任意一个按钮，该按钮弹出一个弹窗。根据按钮不同，弹窗的内容不同，获取按钮的id名。"></a>1.设置了多个按钮，点击任意一个按钮，该按钮弹出一个弹窗。根据按钮不同，弹窗的内容不同，获取按钮的id名。</h4><pre><code>&lt;div id=&quot;test&quot;&gt;test&lt;/div&gt;
+&lt;script&gt;
+document.getElementByld(&quot;test&quot;).onclick=function(){
+alert(event.target.id)
+}
+&lt;/script&gt;
+</code></pre><h4 id="2-用正则表达式匹配邮箱"><a href="#2-用正则表达式匹配邮箱" class="headerlink" title="2.用正则表达式匹配邮箱"></a>2.用正则表达式匹配邮箱</h4><p> 虽然没有统一的邮箱账号格式，但是所有邮箱都符合“名称@域名”的规律。<br><br><br>    <code>^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\. [a-zA-Z0-9_-]+)+$</code></p>
+<h4 id="3-JavaScript数组排序方法"><a href="#3-JavaScript数组排序方法" class="headerlink" title="3.JavaScript数组排序方法"></a>3.JavaScript数组排序方法</h4><pre><code>var arr1=[&quot;a&quot;,&quot;c&quot;,&quot;e&quot;,&quot;d&quot;,&quot;b&quot;];
+var arr2=[11,2,52,31,6];
+alert(arr1.sort());
+alert(arr2.sort());
+
+arr1.sort()//a,b,c,d,e
+arr2.sort()//11,2,31,52,6`
+</code></pre><h4 id="4-用ES5写Object-create"><a href="#4-用ES5写Object-create" class="headerlink" title="4.用ES5写Object.create()"></a>4.用ES5写Object.create()</h4><pre><code>var account=Object.create(Object.prototype,{
+    type:{
+        value:&quot;建设银行&quot;
+        //enumerable:false
+        //configurable:false
+        //writable:false
+    }
+});
+account.type;//&quot;建设银行&quot;
+</code></pre><h4 id="5-HTTP从输入URL到网页加载发生了什么"><a href="#5-HTTP从输入URL到网页加载发生了什么" class="headerlink" title="5.HTTP从输入URL到网页加载发生了什么"></a>5.HTTP从输入URL到网页加载发生了什么</h4><p>①DNS解析<br><br><br>②TCP连接<br><br><br>③发送HTTP请求<br><br><br>④服务器处理请求并返回HTTP报文<br><br><br>⑤浏览器解析渲染页面<br><br><br>⑥连结结束</p>
+<p>more detail:<a href="https://segmentfault.com/a/1190000006879700" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006879700</a></p>
+<h4 id="6-HTTP协议的获取方法-缓存机制"><a href="#6-HTTP协议的获取方法-缓存机制" class="headerlink" title="6.HTTP协议的获取方法/缓存机制"></a>6.HTTP协议的获取方法/缓存机制</h4><ul>
+<li>HTTP的请求方法：<br><br>1、OPTIONS<br><br><br>返回服务器对指定资源提供的的 HTTP 请求方法。<br><br><br>2、HEAD <br><br>该方法与 GET 方法类似，获取指定的资源，但该方法不返回请求体。 <br><br>3、GET <br><br>获取指定的资源，而且应该是安全的和幂等的。幂等是一个数学的概念，通俗的讲就是一次请求和多次请求返回的结果是一致的。该方法一般用来查询数据，但是需要考虑查询条件的长度问题，参考HTTP报文结构及请求数据大小，例如：根据用户ID获取用户信息，该接口只包含固定长度的用户ID信息，因此该接口可以使用GET 方法提供服务。<br><br><br>4、POST <br><br>向指定资源提交数据进行请求处理，如：提交表单或者上传文件。 <br><br>5、PUT <br><br>向指定资源上传其最新内容。 <br><br>6、DELETE <br><br>删除指定的资源。 <br><br>7、TRACE <br><br>回显服务器收到的请求，主要用于测试或诊断。 <br><br>8、CONNECT <br><br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。<br></li>
+<li>缓存机制:<br><br><br>①强制缓存<br><br><br>②对比缓存<br><br><br>强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务器发生交互。<br><br><br>两类缓存规则可以同时存在，强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。<br><br>more detail：<a href="https://segmentfault.com/a/1190000010690320" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010690320</a><br><a href="http://blog.csdn.net/claram/article/details/78289478" target="_blank" rel="noopener">http://blog.csdn.net/claram/article/details/78289478</a></li>
+</ul>
+<h4 id="7-用vue-js写一个TODO-List"><a href="#7-用vue-js写一个TODO-List" class="headerlink" title="7.用vue.js写一个TODO-List"></a>7.用vue.js写一个TODO-List</h4><p>我还不会写，所以先参考网上的：<br><br><a href="http://blog.csdn.net/wzy_1988/article/details/70243941" target="_blank" rel="noopener">http://blog.csdn.net/wzy_1988/article/details/70243941</a><br><a href="https://segmentfault.com/a/1190000013056647" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013056647</a></p>
+<h4 id="8-多行文本垂直居中"><a href="#8-多行文本垂直居中" class="headerlink" title="8.多行文本垂直居中"></a>8.多行文本垂直居中</h4><p>①父元素不确定的多行文本<br><br><code>.container{
+        padding:25px;
+    }</code><br><br><br>②父元素高度确定的多行文本<br></p>
+<ul>
+<li>插入<code>table</code><br><br>  <code>table td{height:500px;background:#ccc;
+  vertical-align：middle}</code></li>
+<li>设置块级元素的<code>display</code>为<code>table-cell</code><br><br>  <code>.container{
+  height:300px;
+  background:#ccc;
+  display:table-cell;
+  vertical-align:middle;
+}</code><br><br><br>参考文章：<a href="https://segmentfault.com/a/1190000003111071" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003111071</a><h4 id="9-JS收集浏览器报错"><a href="#9-JS收集浏览器报错" class="headerlink" title="9.JS收集浏览器报错"></a>9.JS收集浏览器报错</h4>  window.onerror = function (msg, url, lineNo, columnNo, error) {<br>  var errorData = {<br>  msg: msg,<br>  url: url,<br>  lineNo: lineNo,<br>  columnNo: columnNo,<br>  error: error,<br>  ua: navigator.userAgent // 需要的调试的其它信息也可以收集，比如已登录的用户id<br>  };<br>  $.post(‘/js-logger’, errorData);<br>  return false;<br>  };<br>还有一些忘记了，欢迎补充。</li>
+</ul>
+
             </div>
 
             <!-- Post Comments -->
