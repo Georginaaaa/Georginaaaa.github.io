@@ -27,7 +27,7 @@
     <script src="/js/util.js"></script>
     <script src="/js/main.js"></script>
 	
-<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css"><script src="/js/prism.js"></script></head>
     
 		
 <!-- Layouts -->
@@ -109,90 +109,87 @@
             <div class="typo" style="padding: 3rem;">
                
                 <h1 id="This语法"><a href="#This语法" class="headerlink" title="This语法"></a>This语法</h1><h2 id="全局的语境中"><a href="#全局的语境中" class="headerlink" title="全局的语境中"></a>全局的语境中</h2><p>在全局中（任何函数之外），无论全局对象是否在严格模式下，<code>this</code>指代全局对象。</p>
-<blockquote>
-<p>  在浏览器中, window 对象也是全局对象：</p>
-<p>  console.log(this === window); // true</p>
-<p>  a = 37;</p>
-<p>  console.log(window.a); // 37</p>
-<p> this.b = “MDN”;</p>
-<p> console.log(window.b)  // “MDN”</p>
-<p> console.log(b)         // “MDN”</p>
-</blockquote>
-<h2 id="在函数中"><a href="#在函数中" class="headerlink" title="在函数中"></a>在函数中</h2><p>在函数内部，this的值取决于函数被调用的方式。</p>
-<h3 id="1-简单的调用"><a href="#1-简单的调用" class="headerlink" title="1.简单的调用"></a>1.简单的调用</h3><p>下面的代码不是严格的模式，并且由于<code>this</code>不是通过调用设置的，所以这个默认为全局对象。</p>
-<blockquote>
-<p> function f1(){</p>
-<p> return this;</p>
-<p> }</p>
-<p> 在浏览器中：</p>
-<p> f1() === window;  </p>
-<p> 在浏览器中，全局对象是window</p>
-<p> 在Node中：</p>
-<p>f1() === global;</p>
-</blockquote>
-<p>如果<code>this</code>未被定义，那么他的默认值是<code>defined</code>。<br>如果要把<code>this</code>的值从上一个传到另一个，就要用<code>call()</code>或者<code>apply()</code>方法。</p>
-<blockquote>
-<p> 一个对象可以作为call和apply的第一个参数，并且this会被绑定到这个对象。</p>
+<pre><code>在浏览器中, window 对象也是全局对象：
+console.log(this === window); // true   
+a = 37;
+console.log(window.a); // 37    
+this.b = &quot;MDN&quot;;
+console.log(window.b)  // &quot;MDN&quot;
+console.log(b)         // &quot;MDN&quot;
+</code></pre><h2 id="在函数中"><a href="#在函数中" class="headerlink" title="在函数中"></a>在函数中</h2><p>在函数内部，this的值取决于函数被调用的方式。</p>
+<h3 id="1-简单的调用"><a href="#1-简单的调用" class="headerlink" title="1.简单的调用"></a>1.简单的调用</h3><p>下面的代码不是严格的模式，并且由于<code>this</code>不是通过调用设置的，所以这个默认为全局对象。   </p>
+<pre><code>function f1(){
+return this;
+}
+在浏览器中：
+f1() === window;  
+在浏览器中，全局对象是window
+在Node中：
+f1() === global;
+</code></pre><p>如果<code>this</code>未被定义，那么他的默认值是<code>defined</code>。<br>如果要把<code>this</code>的值从上一个传到另一个，就要用<code>call()</code>或者<code>apply()</code>方法。</p>
+<p>一个对象可以作为call和apply的第一个参数，并且this会被绑定到这个对象。</p>
 <p>var obj = {a: ‘Custom’};</p>
-<p> 这个属性是在global对象定义的。 </p>
-<p>var a = ‘Global’;</p>
-<p>function whatsThis(arg) {   </p>
-<p> return this.a;  // this的值取决于函数的调用方式 }</p>
-<p>whatsThis();    //‘Global’</p>
-<p>whatsThis.call(obj);  //‘Custom’</p>
-<p>whatsThis.apply(obj); // ‘Custom’</p>
-</blockquote>
-<p>当在函数使用<code>this</code>关键字时，他的值被绑定到调用中的特定对象，而全部的函数继承<code>Function.prototype</code>的<code>call</code>或者<code>apply</code>方法。</p>
-<blockquote>
-<p>function add(c, d) {</p>
-<p>return this.a + this.b + c + d; }</p>
-<p>var o = {a: 1, b: 3};</p>
-<p>第一个参数是作为‘this’使用的对象</p>
-<p>后续参数作为参数传递给函数调用</p>
-<p>add.call(o, 5, 7); </p>
-<p>第一个参数也是作为‘this’使用的对象</p>
-<p>第二个参数是一个数组，数组里的元素用作函数调用中的参数</p>
-<p> add.apply(o,[10, 20]); //34</p>
-</blockquote>
-<p>使用<code>call</code>和<code>apply</code>时要注意，如果传递的<code>this</code>不是一个对象，将会在内部使用<code>ToObject</code>操作把他转换为对象。所以，如果传递的原始值<code>7</code> 或者<code>&#39;foo&#39;</code>，他将使用相关的构造函数转换为对象，原始值7被转换为一个对象就像<code>new Number(7)</code>一样，而且字符串<code>foo</code>被转换为对象就像<code>new String(&#39;foo&#39;)</code>一样，举个栗子：</p>
-<blockquote>
-<p>function bar() { </p>
-<p>  console.log(Object.prototype.toString.call(this));</p>
-<p>}</p>
-<p>bar.call(7); //[object Number]</p>
-<p>bar.call(‘foo’)//[object String]</p>
-</blockquote>
-<h3 id="2-在对象中"><a href="#2-在对象中" class="headerlink" title="2.在对象中"></a>2.在对象中</h3><p>在函数被作为对象中的方法时，<code>this</code>是调用该函数的对象。<br>在下面的例子中，当o.f()被调用时，在<code>function</code>里面<code>this</code>被绑定到<code>o</code>对象。</p>
-<blockquote>
-<p>var o = { </p>
-<p>  prop: 37,   </p>
-<p>  f: function() {</p>
-<p>  return this.prop; </p>
-<p>  } };</p>
-<p>console.log(o.f()); // logs 37</p>
-</blockquote>
-<p>请注意，此行为完全不受如何或在何处定义函数的影响。 在前面的例子中，我们在o的定义过程中将函数内联定义为f成员。 但是，我们可以先轻松定义函数，然后将其附加到o.f. 这样做会导致相同的行为。<br>所以，只有函数是从o的f成员调用才有意义。</p>
+<p>这个属性是在global对象定义的。 </p>
+<pre><code>var a = &#39;Global&#39;;
+function whatsThis(arg) {   
+return this.a;  // this的值取决于函数的调用方式 }
+whatsThis();    //&#39;Global&#39;
+whatsThis.call(obj);  //&#39;Custom&#39;
+whatsThis.apply(obj); // &#39;Custom&#39;
+</code></pre><p>当在函数使用<code>this</code>关键字时，他的值被绑定到调用中的特定对象，而全部的函数继承<code>Function.prototype</code>的<code>call</code>或者<code>apply</code>方法。</p>
+<pre><code>function add(c, d) {       
+return this.a + this.b + c + d; }   
+var o = {a: 1, b: 3};
+第一个参数是作为‘this’使用的对象
+后续参数作为参数传递给函数调用
+add.call(o, 5, 7); 
+第一个参数也是作为‘this’使用的对象
+第二个参数是一个数组，数组里的元素用作函数调用中的参数
+add.apply(o,[10, 20]); //34
+</code></pre><p>使用<code>call</code>和<code>apply</code>时要注意，如果传递的<code>this</code>不是一个对象，将会在内部使用<code>ToObject</code>操作把他转换为对象。所以，如果传递的原始值<code>7</code> 或者<code>&#39;foo&#39;</code>，他将使用相关的构造函数转换为对象，原始值7被转换为一个对象就像<code>new Number(7)</code>一样，而且字符串<code>foo</code>被转换为对象就像<code>new String(&#39;foo&#39;)</code>一样，举个栗子：</p>
+<pre><code>function bar() { 
+    console.log(Object.prototype.toString.call(this));
+}
+bar.call(7); //[object Number]
+bar.call(&#39;foo&#39;)//[object String]
+</code></pre><h3 id="2-在对象中"><a href="#2-在对象中" class="headerlink" title="2.在对象中"></a>2.在对象中</h3><p>在函数被作为对象中的方法时，<code>this</code>是调用该函数的对象。<br>在下面的例子中，当o.f()被调用时，在<code>function</code>里面<code>this</code>被绑定到<code>o</code>对象。</p>
+<pre><code>var o = { 
+    prop: 37,   
+    f: function() {
+    return this.prop; 
+    } };
+console.log(o.f()); // logs 37
+</code></pre><p>请注意，此行为完全不受如何或在何处定义函数的影响。 在前面的例子中，我们在o的定义过程中将函数内联定义为f成员。 但是，我们可以先轻松定义函数，然后将其附加到o.f. 这样做会导致相同的行为。<br>所以，只有函数是从o的f成员调用才有意义。</p>
 <h4 id="原型链中的this"><a href="#原型链中的this" class="headerlink" title="原型链中的this"></a>原型链中的this</h4><p>相同的概念在定义在原型链中的方法也是一致的。如果该方法存在于一个对象的原型链上，那么<code>this</code>指向的是调用这个方法的对象，就好像该方法本来就存在于这个对象上。</p>
-<blockquote>
-<p>var o = {   f : function(){ </p>
-<p>return this.a + this.b; </p>
-<p>} }; </p>
-<p>var p = Object.create(o);</p>
-<p>p.a = 1; </p>
-<p>p.b = 4;</p>
-<p>console.log(p.f()); // 5</p>
-</blockquote>
-<p>在这个例子中，对象<code>p</code>没有属于它自己的f属性，它的<code>f</code>属性继承自它的原型。但是这对于最终在<code>o</code>中找到<code>f</code>属性的查找过程来说没有关系；查找过程首先从<code>p.f</code>的引用开始，所以函数中的<code>this</code>指向<code>p</code>。也就是说，因为f是作为<code>p</code>的方法调用的，所以它的<code>this</code>指向了<code>p</code>。这是 JavaScript 的原型继承中的一个有趣的特性。</p>
+<pre><code>var o = {   f : function(){   
+return this.a + this.b;   
+} }; 
+var p = Object.create(o);
+p.a = 1; 
+p.b = 4;
+console.log(p.f()); // 5
+</code></pre><p>在这个例子中，对象<code>p</code>没有属于它自己的f属性，它的<code>f</code>属性继承自它的原型。但是这对于最终在<code>o</code>中找到<code>f</code>属性的查找过程来说没有关系；查找过程首先从<code>p.f</code>的引用开始，所以函数中的<code>this</code>指向<code>p</code>。也就是说，因为f是作为<code>p</code>的方法调用的，所以它的<code>this</code>指向了<code>p</code>。这是 JavaScript 的原型继承中的一个有趣的特性。</p>
 <h3 id="3-在构造函数中"><a href="#3-在构造函数中" class="headerlink" title="3.在构造函数中"></a>3.在构造函数中</h3><p>当函数被用作构造函数时（带着new关键字），<code>this</code>会被作为构造函数绑定在新对象中。</p>
-<blockquote>
-<p>构造函数这样工作:</p>
-<p>function MyConstructor(){<br>   // 函数实体写在这里   }<br> 根据需要在this上创建属性，然后赋值给它们，比如：<br>this.fum = “nom”;<br>等等…<br> 如果函数具有返回对象的return语句，则该对象将是 new 表达式的结果。<br>否则，表达式的结果是当前绑定到 this 的对象。<br>（即通常看到的常见情况）。  </p>
-<p>function C(){<br>   this.a = 37; }</p>
-<p>var o = new C();<br>console.log(o.a); // logs 37</p>
-<p>function C2(){<br>   this.a = 37;<br>   return {a:38}; }</p>
-</blockquote>
-<p>在刚刚的例子中（C2），因为在调用构造函数的过程中，手动的设置了返回对象，与<code>this</code>绑定的默认对象被丢弃了。（这基本上使得语句 <code>“this.a = 37;”</code>成了“僵尸”代码，实际上并不是真正的“僵尸”，这条语句执行了，但是对于外部没有任何影响，因此完全可以忽略它）。</p>
-<p><code>this</code>还有其他的用法，学到后面再更新..<br><br>全文参考：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this</a></p>
+<p>  构造函数这样工作:</p>
+<pre><code>function MyConstructor(){    
+    // 函数实体写在这里   }
+根据需要在this上创建属性，然后赋值给它们，比如：    
+this.fum = &quot;nom&quot;;     
+等等...   
+如果函数具有返回对象的return语句，则该对象将是 new 表达式的结果。      
+否则，表达式的结果是当前绑定到 this 的对象。 
+（即通常看到的常见情况）。  
+
+function C(){   
+    this.a = 37; }
+var o = new C();
+console.log(o.a); // logs 37
+
+function C2(){   
+    this.a = 37;   
+    return {a:38}; }
+</code></pre><p>在刚刚的例子中（C2），因为在调用构造函数的过程中，手动的设置了返回对象，与<code>this</code>绑定的默认对象被丢弃了。（这基本上使得语句 <code>“this.a = 37;”</code>成了“僵尸”代码，实际上并不是真正的“僵尸”，这条语句执行了，但是对于外部没有任何影响，因此完全可以忽略它）。</p>
+<p><code>this</code>还有其他的用法，学到后面再更新.. <br><br>全文参考：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this</a></p>
 
             </div>
 
